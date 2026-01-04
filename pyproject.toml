@@ -1,0 +1,114 @@
+[project]
+name = "options-pricing-ml"
+version = "0.1.0"
+description = "Machine Learning platform for options pricing and volatility surface modeling"
+requires-python = ">=3.10"
+readme = "README.md"
+license = { text = "MIT" }
+
+dependencies = [
+    # Core
+    "b3quant>=0.1.18",
+    "pandas>=2.0.0",
+    "numpy>=1.24.0",
+    "scipy>=1.10.0",
+
+    # ML - Tree models
+    "xgboost>=2.0.0",
+    "lightgbm>=4.0.0",
+    "catboost>=1.2.0",
+
+    # ML - Deep Learning
+    "torch>=2.0.0",
+    "tensorflow>=2.15.0",
+    "transformers>=4.30.0",
+
+    # Hyperparameter tuning
+    "optuna>=3.5.0",
+    "ray[tune]>=2.9.0",
+
+    # Explainability
+    "shap>=0.44.0",
+    "lime>=0.2.0",
+
+    # MLOps
+    "mlflow>=2.10.0",
+    "great-expectations>=0.18.0",
+    "dvc>=3.0.0",
+
+    # Visualization
+    "matplotlib>=3.7.0",
+    "seaborn>=0.12.0",
+    "plotly>=5.18.0",
+
+    # Utilities
+    "pydantic>=2.5.0",
+    "click>=8.1.0",
+    "tqdm>=4.65.0",
+    "python-dotenv>=1.0.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.4.0",
+    "pytest-cov>=4.1.0",
+    "ruff>=0.1.0",
+    "mypy>=1.5.0",
+    "jupyter>=1.0.0",
+    "ipykernel>=6.25.0",
+]
+
+api = [
+    "fastapi>=0.108.0",
+    "uvicorn[standard]>=0.25.0",
+    "pydantic-settings>=2.1.0",
+]
+
+airflow = [
+    "apache-airflow>=2.8.0",
+]
+
+[project.scripts]
+train = "src.scripts.train:main"
+evaluate = "src.scripts.evaluate:main"
+serve = "src.serving.api:main"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = "test_*.py"
+python_classes = "Test*"
+python_functions = "test_*"
+addopts = "-v --cov=src --cov-report=html --cov-report=term"
+
+[tool.mypy]
+python_version = "3.10"
+strict = true
+warn_return_any = true
+warn_unused_configs = true
+disallow_untyped_defs = true
+
+[tool.ruff]
+line-length = 100
+target-version = "py310"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "N", "W", "UP", "B", "C4", "SIM"]
+ignore = ["E501"]  # Line too long (handled by formatter)
+
+[tool.coverage.run]
+source = ["src"]
+omit = ["tests/*", "scripts/*"]
+
+[tool.coverage.report]
+exclude_lines = [
+    "pragma: no cover",
+    "def __repr__",
+    "raise AssertionError",
+    "raise NotImplementedError",
+    "if __name__ == .__main__.:",
+    "if TYPE_CHECKING:",
+]
