@@ -2,7 +2,7 @@
 name = "options-pricing-ml"
 version = "0.1.0"
 description = "Machine Learning platform for options pricing and volatility surface modeling"
-requires-python = ">=3.10"
+requires-python = ">=3.10,<3.13"
 readme = "README.md"
 license = { text = "MIT" }
 
@@ -25,10 +25,10 @@ dependencies = [
 
     # Hyperparameter tuning
     "optuna>=3.5.0",
-    "ray[tune]>=2.9.0",
 
     # Explainability
-    "shap>=0.44.0",
+    "shap>=0.45.0",
+    "numba>=0.59.0",  # Force newer version for Python 3.10+ support
     "lime>=0.2.0",
 
     # MLOps
@@ -76,6 +76,9 @@ serve = "src.serving.api:main"
 [build-system]
 requires = ["hatchling"]
 build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
