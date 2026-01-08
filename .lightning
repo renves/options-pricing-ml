@@ -1,0 +1,16 @@
+name: options-pricing-ml
+description: ML platform for options pricing and volatility surface modeling
+
+# Lightning Studio configuration
+studio:
+  # Use CPU for XGBoost (free), GPU for deep learning
+  default_compute: cpu
+
+  # Python environment
+  python_version: "3.12"
+
+  # Auto-setup on studio start
+  on_start:
+    - pip install uv
+    - uv sync
+    - uv sync --group dev

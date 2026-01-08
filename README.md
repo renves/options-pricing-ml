@@ -40,26 +40,25 @@ Production-grade ML platform demonstrating:
 
 ## 🚀 Quick Start
 
-### Using Docker (Recommended)
+### Using Lightning.ai (Recommended)
+
+1. **Create a Lightning.ai Studio** at [lightning.ai](https://lightning.ai)
+2. **Clone this repository** in the Studio terminal
+3. **Run the setup script**:
 
 ```bash
-# Start MLOps stack (MLflow + Postgres + MinIO)
-docker-compose up -d
+# Clone and setup
+git clone https://github.com/renves/options-pricing-ml.git
+cd options-pricing-ml
+chmod +x setup_lightning.sh && ./setup_lightning.sh
 
-# Install dependencies
-uv sync
+# Train XGBoost model
+uv run python scripts/train_xgboost.py
 
-# Download and prepare data
-python scripts/prepare_data.py --year 2024 --month 11
-
-# Train baseline models
-python scripts/train_baseline.py
-
-# View experiments
-open http://localhost:5000  # MLflow UI
+# View experiments in MLflow UI (Open Ports tab, port 5000)
 ```
 
-### Manual Setup
+### Local Development
 
 ```bash
 # Install uv (if not installed)
@@ -69,9 +68,22 @@ curl -LsSf https://astral.sh/uv/install.sh | sh
 uv sync
 
 # Setup MLflow tracking (local)
-mlflow server --backend-store-uri sqlite:///mlflow.db \
-              --default-artifact-root ./mlruns \
-              --host 0.0.0.0 --port 5000
+uv run mlflow server --backend-store-uri sqlite:///mlflow.db \
+                     --default-artifact-root ./mlruns \
+                     --host 0.0.0.0 --port 5000
+```
+
+### Using Docker (Full MLOps Stack)
+
+```bash
+# Start MLOps stack (MLflow + Postgres + MinIO)
+docker-compose up -d
+
+# Install dependencies
+uv sync
+
+# View experiments
+open http://localhost:5000  # MLflow UI
 ```
 
 ---
