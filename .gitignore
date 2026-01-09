@@ -94,18 +94,9 @@ htmlcov/
 # Docker
 *.env.docker
 
-# Claude (local only - DO NOT COMMIT)
+# Claude Code (local only)
 CLAUDE.md
 .claude/
-
-# Roadmaps and onboarding (local only - DO NOT COMMIT)
-ROADMAP*.md
-FILES_INDEX.md
-ML_PROJECT_SETUP.md
-ONBOARDING.md
-QUICK_START.md
-START_HERE.md
-HANDOFF_SUMMARY.md
 
 # Temporary files
 tmp/
