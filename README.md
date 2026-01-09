@@ -93,7 +93,7 @@ open http://localhost:5000  # MLflow UI
 | Model | Type | Status | Accuracy | Training Time |
 |-------|------|--------|----------|---------------|
 | Black-Scholes | Analytical | ✅ Baseline | - | Instant |
-| XGBoost | Tree-based | ⏳ In Progress | TBD | ~5 min |
+| XGBoost | Tree-based | ✅ Complete | TBD | ~5 min |
 | LightGBM | Tree-based | ⏳ Planned | TBD | ~3 min |
 | LSTM-GRU | Deep Learning | ⏳ Planned | TBD | ~30 min |
 | VAE | Generative | ⏳ Planned | TBD | ~1 hour |
@@ -214,6 +214,39 @@ This project demonstrates:
 
 ---
 
+## 🚀 API Deployment
+
+### Live API (Render.com)
+
+```bash
+# Predict implied volatility
+curl -X POST "https://options-pricing-api.onrender.com/predict" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "spot_price": 36.50,
+    "strike": 35.00,
+    "days_to_maturity": 30,
+    "option_type": "CALL"
+  }'
+```
+
+### API Endpoints
+
+| Endpoint | Method | Description |
+|----------|--------|-------------|
+| `/` | GET | API info |
+| `/health` | GET | Health check |
+| `/predict` | POST | Single prediction |
+| `/predict/batch` | POST | Batch predictions (max 100) |
+| `/model/info` | GET | Model information |
+| `/docs` | GET | Swagger UI documentation |
+
+### Deploy Your Own
+
+[![Deploy to Render](https://render.com/images/deploy-to-render-button.svg)](https://render.com/deploy?repo=https://github.com/renves/options-pricing-ml)
+
+---
+
 ## 🤝 Contributing
 
 This is a portfolio project. Feedback and suggestions are welcome via issues!
@@ -235,4 +268,4 @@ MIT License
 
 **Status**: 🚧 Active Development | Phase 3 (Tree-Based Models)
 
-**Last Updated**: 2026-01-04
+**Last Updated**: 2026-01-08
